@@ -6,8 +6,13 @@ import { createNativeStackNavigator, NativeStackNavigationProp, NativeStackScree
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Header } from 'react-native/Libraries/NewAppScreen';
 import { TelaDeLogin } from './tela_de_login';
-import { TelaDeMaterias } from './tela_de_materias';
-import { TelaDoHub } from './tela_do_hub';
+import { TelaDeMenu } from './tela_de_menu';
+import { TelaDePersonagens } from './tela_de_personagens';
+import { TelaDeItens } from './tela_de_itens';
+import { DBContext } from './geral';
+import * as SQLite from 'expo-sqlite'
+import * as FileSystem from 'expo-file-system';
+import { Asset } from 'expo-asset';
 
 const Stack = createNativeStackNavigator();
 const Bottom = createBottomTabNavigator();
@@ -16,19 +21,45 @@ export interface Props {
   navigation: NavigationProp<any, any>;
 }
 
+//função para mover o banco de dados do folder assets pro folder dos documentos do celular
+const loadingFunc = async () => {
+  if (!(await FileSystem.getInfoAsync(FileSystem.documentDirectory + 'SQLite')).exists) {
+    await FileSystem.makeDirectoryAsync(FileSystem.documentDirectory + 'SQLite');
+  };
+  
+  
+  if(!await (await FileSystem.getInfoAsync(FileSystem.documentDirectory + "SQLite/mainDB.db")).exists){
+    await FileSystem.downloadAsync(
+      Asset.fromModule(require('./assets/mainDB.db')).uri,
+      FileSystem.documentDirectory + `SQLite/mainDB.db`
+    ).then(() => {
+      console.log('copied mainDB!');
+    });
+  }
+  
+  
+}
+
+
 function MainScreen({navigation} : Props){
   return (
     <Bottom.Navigator>
       <Bottom.Screen name="Login" component={TelaDeLogin}></Bottom.Screen>
-      <Bottom.Screen name="Hub" component={TelaDoHub}></Bottom.Screen>
-      <Bottom.Screen name="Materias" component={TelaDeMaterias}></Bottom.Screen>
+      <Bottom.Screen name="Menu" component={TelaDeMenu}></Bottom.Screen>
+      <Bottom.Screen name="Personagens" component={TelaDePersonagens}></Bottom.Screen>
+      <Bottom.Screen name="Itens" component={TelaDeItens}></Bottom.Screen>
     </Bottom.Navigator>
   );
 }
 
 export default function App() {
 
+  loadingFunc();
+
   return (
+    <DBContext.Provider value={(() => {
+      return SQLite.openDatabase('mainDB.db');
+    })()}>
       <NavigationContainer>
         <Stack.Navigator 
           screenOptions={{
@@ -39,6 +70,7 @@ export default function App() {
           <Stack.Screen name="Main" options={{headerShown:false,gestureEnabled:false,headerLeft: () => <></>}} component={MainScreen} />
         </Stack.Navigator>
       </NavigationContainer>
+      </DBContext.Provider>
     );
 
 }

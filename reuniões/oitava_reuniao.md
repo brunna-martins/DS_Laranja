@@ -6,4 +6,4 @@ Presentes: Pedro, Otávio
 
 ## Tópicos
 
-    *
+    * Discussão sobre os assuntos da reunião
