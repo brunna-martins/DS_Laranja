@@ -14,7 +14,8 @@ import * as SQLite from 'expo-sqlite'
 import * as FileSystem from 'expo-file-system';
 import { Asset } from 'expo-asset';
 import Select from 'react-select';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import Collapsible from 'react-native-collapsible';
+
 
 const Stack = createNativeStackNavigator();
 const Bottom = createBottomTabNavigator();
