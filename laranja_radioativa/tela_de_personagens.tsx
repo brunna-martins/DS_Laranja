@@ -9,7 +9,6 @@ import { NavigationContainer, NavigationProp, StackActions } from "@react-naviga
 
 
 
-
 export function TelaDePersonagens ({navigation} : Props) {
 
 
@@ -30,9 +29,27 @@ export function TelaDePersonagens ({navigation} : Props) {
 
 export function CriarPersonagem ({navigation} : Props) {
     return <View style={Styles.mainView}>
-        
+        <div className="container">
+        <div className="row">
+        <div className="col-md-4"></div>
+        <div className="col-md-4">
+        <Select options={ techCompanies } />
+        </div>
+        <div className="col-md-4"></div>
+        </div>
+        </div>
     </View>
 }
+
+const techCompanies = [
+    { label: "Apple", value: 1 },
+    { label: "Facebook", value: 2 },
+    { label: "Netflix", value: 3 },
+    { label: "Tesla", value: 4 },
+    { label: "Amazon", value: 5 },
+    { label: "Alphabet", value: 6 },
+  ];
+  
 
 export function VisualizarPersonagem ({navigation} : Props) {
     return <View style={Styles.mainView}>
