@@ -7,11 +7,20 @@ import { Styles } from "./styles";
 
 
 
+const styles = StyleSheet.create({
+  containerForm:{
+    flex:2,
+    backgroundColor: '#cd5f00'
+  }
+})
+
 
 export const TelaDeMenu = () => {
-
-
-    return <View style={Styles.mainView}>
-
-    </View>
+    return (
+      <View style={styles.containerForm}>
+        <Text style={{}}>Tela de Menu</Text>
+        <Text style={{}}>Teste Teste Teste</Text>  
+      </View>
+    )
 }
+  
