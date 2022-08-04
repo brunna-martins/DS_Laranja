@@ -26,7 +26,7 @@ export const Styles = StyleSheet.create({
         alignItems:'center',
         justifyContent:'center',
         width:'100%',
-        backgroundColor:AppColors.white
+        backgroundColor:AppColors.preto
     }
 
 

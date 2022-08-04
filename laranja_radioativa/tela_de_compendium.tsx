@@ -8,7 +8,7 @@ import { Styles } from "./styles";
 
 
 
-export const TelaDeItens = () => {
+export const TelaDeCompendium = () => {
 
     const db = useContext(DBContext);
 
@@ -25,6 +25,6 @@ export const TelaDeItens = () => {
     })
 
     return <View style={Styles.mainView}>
-        <Text>{JSON.stringify(data)}</Text>
+        <ScrollView style={{}}></ScrollView>
     </View>
 }
